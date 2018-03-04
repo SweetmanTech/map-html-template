@@ -79,37 +79,31 @@ document.addEventListener('DOMContentLoaded', function() {
   })
 
   function requestFile(filename) {
-      var request_obj = new XMLHttpRequest();
+      let request_obj = new XMLHttpRequest();
+      let dataMatrix = [];
       request_obj.responseType = 'text';
       request_obj.open("GET", filename);
       request_obj.send();
       request_obj.onload = function () {
           displayResponse(request_obj.responseText);
       };
+      return dataMatrix;
   }
 
   function displayResponse(content) {
     let htmlData = "";
     var rowString = content.split('\n');
-    var dataMatrix = [[],[],[],[],[],[],[],[],[]];
-
-
-    for (var i = 0; i<rowString.length; i++) {
-        var row = rowString[i].split(',');
-        for(var j=0; j<row.length; j++) {
-
-            dataMatrix[i][j] = row[j];
-            console.log(dataMatrix[i][j]);
-
-        }
-    }
-
-    var response_div = document.getElementById("response_div");
-    response_div.textContent = content;
-    return htmlData;
+    var dataMatrix = [];
+    for (var i = 0; i < rowString.length; i++) {
+       dataMatrix.push(rowString[i].split(','));
+     }
+     console.log(dataMatrix);
   }
 
   function getNeighborhoodData(neighborhood) {
+    let htmlTable = '<table class="table"><thead><tr><th scope="col">CRITERIA</th><th scope="col">VALUE</th></tr></thead><tbody>';
+
+
     return '<p>Hello Maxland!<br />This is a nice popup for ' + neighborhood + '</p>';
   }
 });
