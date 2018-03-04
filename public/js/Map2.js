@@ -20,15 +20,16 @@ document.addEventListener('DOMContentLoaded', function() {
     var dataMatrix = [];
     let foreclosureMatrix = [];
     var promise1 = new Promise(function(resolve, reject) {
-      for (var i = 0; i < rowString.length; i++) {
+      foreclosures = L.featureGroup([L.marker([39.1031, -84.5120], { title:"Cincinnati" }).bindPopup("Cincinnati").openPopup()]);
+      for (var i = 1; i < rowString.length; i++) {
         let row = rowString[i].split(',');
         console.log(row);
+        let currentForeclosure = row[0];
 
-        let htmlTable = '<table class="table"><thead><tr><th scope="col">CRITERIA</th><th scope="col">VALUE</th></tr></thead><tbody><tr><td>Min</td><td>' + min + '</td></tr><tr><td>Max</td><td> ' + max+ '</td></tr><tr><td>Average</td><td> ' + total/count + '</td></tr></tbody></table>';
+        let htmlTable = '<table class="table"><thead><tr><th scope="col">CRITERIA</th><th scope="col">VALUE</th></tr></thead><tbody><tr><td>Min</td><td>' + "min" + '</td></tr><tr><td>Max</td><td> ' + "max" + '</td></tr><tr><td>Average</td><td> ' + "total/count" + '</td></tr></tbody></table>';
         console.log(currentForeclosure);
         if (currentForeclosure) {
-            currentForeclosure = currentForeclosure.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s/g, '');
-            this[currentForeclosure] = [min, max, total/count, htmlTable];
+            console.log(row);
         } else {
           console.log(row);
         }
@@ -42,10 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function displayMap() {
     let that = this;
-    let corner1 = L.latLng(39.235646, -84.684781),
-        corner2 = L.latLng(38.991082, -84.236244),
-        bounds = L.latLngBounds(corner1, corner2),
-        noValuePopup = "<div class='text-center'><h3>No Foreclosure Data Available, view data source:</h3><a href='https://maxland-a79e2.firebaseapp.com/data/foreclosure.csv' class='btn btn-success'>Data</a></div>",
+    let noValuePopup = "<div class='text-center'><h3>No Foreclosure Data Available, view data source:</h3><a href='https://maxland-a79e2.firebaseapp.com/data/foreclosure.csv' class='btn btn-success'>Data</a></div>",
         foreclosures = L.featureGroup([
           L.marker([39.1031, -84.5120], { title:"Cincinnati" }).bindPopup(getForeclosureData("Cincinnati")).openPopup(),
           L.marker([39.1486, -84.5903], { title:"Westwood"}).bindPopup(that["WESTWOOD"] ? that["WESTWOOD"][3] : noValuePopup).openPopup(),

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var dataMatrix = [];
     let neighborhoodMatrix = [];
     var promise1 = new Promise(function(resolve, reject) {
-      for (var i = 0; i < rowString.length; i++) {
+      for (var i = 1; i < rowString.length; i++) {
         let row = rowString[i].split(',');
         let currentNeighborhood = row[0],
             total = 0,
@@ -28,9 +28,9 @@ document.addEventListener('DOMContentLoaded', function() {
             max = 0,
             count = 0;
 
-            while(row[0] == currentNeighborhood) {
+            while(row[0] == currentNeighborhood && i < rowString.length) {
               count++;
-              let value = row[19];
+              let value = parseInt(row[19]);
               total += value;
               if (value > max) {
                 max = value;
@@ -39,7 +39,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 min = value;
               }
               i++;
-              row = rowString[i].split(',');
+              if (i < rowString.length) {
+                  row = rowString[i].split(',');
+              }
+              console.log(count);
             }
 
         let htmlTable = '<table class="table"><thead><tr><th scope="col">CRITERIA</th><th scope="col">VALUE</th></tr></thead><tbody><tr><td>Min</td><td>' + min + '</td></tr><tr><td>Max</td><td> ' + max+ '</td></tr><tr><td>Average</td><td> ' + total/count + '</td></tr></tbody></table>';
@@ -47,10 +50,10 @@ document.addEventListener('DOMContentLoaded', function() {
         if (currentNeighborhood) {
             currentNeighborhood = currentNeighborhood.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s/g, '');
             this[currentNeighborhood] = [min, max, total/count, htmlTable];
-        } else {
-          console.log(row);
         }
+
        }
+
        resolve('Success!');
      });
      promise1.then(function(value) {
@@ -77,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
            L.marker([39.1104, -84.5085], { title:"Pendleton"}).bindPopup(that["PENDLETON"] ? that["PENDLETON"][3] : noValuePopup).openPopup(),
            L.marker([39.1128, -84.5183], { title:"Over-the-Rhine"}).bindPopup(that["OVERTHERHINE"] ? that["OVERTHERHINE"][3] : noValuePopup).openPopup(),
            L.marker([39.1511, -84.4225], { title:"Oakley"}).bindPopup(that["OAKLEY"] ? that["OAKLEY"][3] : noValuePopup).openPopup(),
-           L.marker([39.1669, -84.5379], { title:"Northside"}).bindPopup(that["NORTHSIDE"][3] ? that["NORTHSIDE"][3] : noValuePopup).openPopup(),
+           L.marker([39.1669, -84.5379], { title:"Northside"}).bindPopup(that["NORTHSIDE"] ? that["NORTHSIDE"][3] : noValuePopup).openPopup(),
            L.marker([39.1382, -84.5602], { title:"North Fairmount"}).bindPopup(that["NORTHFAIRMONT"] ? that["NORTHFAIRMONT"][3] : noValuePopup).openPopup(),
            L.marker([39.1615, -84.4776], { title:"North Avondale - Paddock Hills"}).bindPopup(that["NORTHAVONDALEPADDOCKHILLS"] ? that["NORTHAVONDALEPADDOCKHILLS"][3] : noValuePopup).openPopup(),
            L.marker([39.0868, -84.3805], { title:"Mt. Washington"}).bindPopup(that["MTWASHINGTON"] ? that["MTWASHINGTON"][3] : noValuePopup).openPopup(),
@@ -89,7 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
            L.marker([39.1600, -84.3910], { title:"Madisonville"}).bindPopup(that["MADISONVILLE"] ? that["MADISONVILLE"][3] : noValuePopup).openPopup(),
            L.marker([39.1053, -84.5516], { title:"Lower Price Hill"}).bindPopup(that["LOWERPRICEHILL"] ? that["LOWERPRICEHILL"][3]  : noValuePopup).openPopup(),
            L.marker([39.1267, -84.4097], { title:"Linwood"}).bindPopup(that["LINWOOD"] ? that["LINWOOD"][3] : noValuePopup).openPopup(),
-           L.marker([39.1842, -84.4094], { title:"Kennedy Heights"}).bindPopup(that["KENNEDYHEIGHTS"][3] ? that["KENNEDYHEIGHTS"][3] : noValuePopup).openPopup(),
+           L.marker([39.1842, -84.4094], { title:"Kennedy Heights"}).bindPopup(that["KENNEDYHEIGHTS"] ? that["KENNEDYHEIGHTS"][3] : noValuePopup).openPopup(),
            L.marker([39.1314, -84.4435], { title:"Hyde Park"}).bindPopup(that["HYDEPARK"] ? that["HYDEPARK"][3] : noValuePopup).openPopup(),
            L.marker([39.2134, -84.4686], { title:"Hartwell"}).bindPopup(that["HARTWELL"] ? that["HARTWELL"][3] : noValuePopup).openPopup(),
            L.marker([39.1405, -84.4724], { title:"Evanston"}).bindPopup(that["EVANSTON"] ? that["EVANSTON"][3] : noValuePopup).openPopup(),
@@ -109,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
            L.marker([39.1743, -84.4750], { title:"Bond Hill"}).bindPopup(that["BONDHILL"] ? that["BONDHILL"][3] : noValuePopup).openPopup(),
            L.marker([39.1415, -84.4934], { title:"Avondale"}).bindPopup(that["AVONDALE"] ? that["AVONDALE"][3] : noValuePopup).openPopup(),
         ])
-    
+
     neighborhoods.addTo(mymap);
 
     //HIDES neighborhood FeatureGroup on ClickListener
