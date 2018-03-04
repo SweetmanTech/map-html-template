@@ -1,0 +1,45 @@
+{
+  "session": {
+    "new": true,
+    "sessionId": "SessionId.e04970da-e58f-4784-95ce-71559aeda0cb",
+    "application": {
+      "applicationId": "amzn1.ask.skill.a2e3184a-b5cf-4d56-b97b-10c85a7f8014"
+    },
+    "attributes": {},
+    "user": {
+      "userId": "amzn1.ask.account.AGSEWD2VKACJZXHMS2C3IOD4PA3VLK3PYTJE2K7RC367NGR7HCQC3BOVHM3P6CAR6E7TJJIUEBXMUDGSSIFLXSHEYTLEQCMCTGIGMEBXJSH54MXLZGMGJJG6N5FZGPEWFU2J2GA6F5QU6ONYCXHBQUZ7YUVWHLGTH3PZP5LZDNDJEPWSGUH4VJ3OR5WT55MWP4VVVSCFEAC4VQQ"
+    }
+  },
+  "request": {
+    "type": "IntentRequest",
+    "requestId": "EdwRequestId.931933b0-4b63-46ea-981f-549579e4b038",
+    "intent": {
+      "name": "ForeclosuresIntent",
+      "slots": {
+        "Neighborhood": {
+          "name": "Neighborhood",
+          "value": "Clifton"
+        }
+      }
+    },
+    "locale": "en-US",
+    "timestamp": "2018-03-04T09:08:20Z"
+  },
+  "context": {
+    "AudioPlayer": {
+      "playerActivity": "IDLE"
+    },
+    "System": {
+      "application": {
+        "applicationId": "amzn1.ask.skill.a2e3184a-b5cf-4d56-b97b-10c85a7f8014"
+      },
+      "user": {
+        "userId": "amzn1.ask.account.AGSEWD2VKACJZXHMS2C3IOD4PA3VLK3PYTJE2K7RC367NGR7HCQC3BOVHM3P6CAR6E7TJJIUEBXMUDGSSIFLXSHEYTLEQCMCTGIGMEBXJSH54MXLZGMGJJG6N5FZGPEWFU2J2GA6F5QU6ONYCXHBQUZ7YUVWHLGTH3PZP5LZDNDJEPWSGUH4VJ3OR5WT55MWP4VVVSCFEAC4VQQ"
+      },
+      "device": {
+        "supportedInterfaces": {}
+      }
+    }
+  },
+  "version": "1.0"
+}
