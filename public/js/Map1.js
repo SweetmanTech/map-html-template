@@ -1,10 +1,11 @@
 document.addEventListener('DOMContentLoaded', function() {
   let mymap = L.map('mapid').setView([39.1329, -84.5150], 13),
+      joinedData =
       corner1 = L.latLng(39.235646, -84.684781),
       corner2 = L.latLng(38.991082, -84.236244),
       bounds = L.latLngBounds(corner1, corner2),
       neighborhoods = L.featureGroup([
-        L.marker([39.1031, -84.5120], { title:"Cincinnatus" }),
+        L.marker([39.1031, -84.5120], { title:"Cincinnati" }).bindTooltip("<button>my tooltip text</button>", {direction: "top", interactive: true}).openTooltip(),
         L.marker([39.1486, -84.5903], { title:"Westwood"}),
         L.marker([39.1139481, -84.5913335], { title:"West Price Hill"}),
         L.marker([39.1118, -84.5248], { title:"West End"}),
@@ -77,4 +78,35 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     neighborhoodsOn = !neighborhoodsOn;
   })
+
+  function requestFile(filename) {
+      var request_obj = new XMLHttpRequest();
+      request_obj.responseType = 'text';
+      request_obj.open("GET", filename);
+      request_obj.send();
+      request_obj.onload = function () {
+          display_response(request_obj.responseText);
+      };
+  }
+
+  function getNeighborhoodTable(neighborhood) {
+    let htmlData = "";
+    var rowString = content.split('\n');
+    var dataMatrix = [[],[],[],[],[],[],[],[],[]];
+
+
+    for (var i = 0; i<rowString.length; i++) {
+        var row = rowString[i].split(',');
+        for(var j=0; j<row.length; j++) {
+
+            dataMatrix[i][j] = row[j];
+            console.log(dataMatrix[i][j]);
+
+        }
+    }
+
+    var response_div = document.getElementById("response_div");
+    response_div.textContent = content;
+    return htmlData;
+  }
 });
