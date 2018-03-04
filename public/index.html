@@ -39,6 +39,7 @@
     </div>
 
     <div id="Interactions" class="text-right">
+      <button id="toggleForeclosure" type="button" class="btn btn-dark">Foreclosures</button>
       <button id="toggleNeighborhood" type="button" class="btn btn-dark">Neighborhoods</button>
     </div>
 
@@ -70,8 +71,22 @@
           document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
       });
+      let mymap = L.map('mapid').setView([39.1329, -84.5150], 13),
+          corner1 = L.latLng(39.235646, -84.684781),
+          corner2 = L.latLng(38.991082, -84.236244);
+      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+          attribution: 'MaxLand built @ RevolutionUC',
+          maxZoom: 18,
+          id: 'mapbox.streets',
+          accessToken: 'pk.eyJ1IjoicGF0cmlja3N3ZWV0bWFuIiwiYSI6ImNqZWJ0aWszYjBnbDQyeHBieTE1ZmIycXMifQ.EbwMzqH3TpFlJk6EonENrQ'
+      }).addTo(mymap);
+      mymap.setMaxBounds([
+        corner1,
+        corner2
+      ]);
     </script>
     <!--MAXLAND -->
     <script src="./js/Map1.js"></script>
+    <script src="./js/Map2.js"></script>
   </body>
 </html>
