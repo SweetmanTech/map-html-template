@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
               }
               console.log(count);
             }
-        let htmlTable = '<table class="table"><thead><tr><th scope="col">CRITERIA</th><th scope="col">VALUE</th></tr></thead><tbody><tr><td>Min</td><td>' + min + '</td></tr><tr><td>Max</td><td> ' + max+ '</td></tr><tr><td>Average</td><td> ' + total/count + '</td></tr></tbody></table>';
+        let htmlTable = '<h4>' + currentNeighborhood + '</h4><table class="table"><thead><tr><th scope="col">CRITERIA</th><th scope="col">VALUE</th></tr></thead><tbody><tr><td>Min</td><td>' + min + '</td></tr><tr><td>Max</td><td> ' + max+ '</td></tr><tr><td>Average</td><td> ' + total/count + '</td></tr></tbody></table>';
         console.log(currentNeighborhood);
         if (currentNeighborhood) {
             currentNeighborhood = currentNeighborhood.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"").replace(/\s/g, '');
