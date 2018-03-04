@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function displayResponse(content) {
-    let foreclosures = L.featureGroup([L.marker([39.1031, -84.5120], { title:"Cincinnati" }).bindPopup("Cincinnati").openPopup()]);
+    let recommendations = L.featureGroup([L.marker([39.1031, -84.5120], { title:"Cincinnati" }).bindPopup("Cincinnati").openPopup()]);
     let htmlData = "";
     var rowString = content.split('\n');
     var promise3 = new Promise(function(resolve, reject) {
@@ -32,26 +32,22 @@ document.addEventListener('DOMContentLoaded', function() {
       for (var i = 1; i < rowString.length; i++) {
         let row = rowString[i].split(',');
         let currentAddress = row[0],
-            propCode = row[1],
-            parcelCode = row[2];
+            propCode = parseInt(row[3]),
+            parcelCode = parseInt(row[4]);
+            console.log(parcelCode);
         let recommendation = getPropertyRecommendation(propCode, parcelCode);
-        console.log(recommendation);
-        let htmlTable = '<table class="table"><thead><tr><th scope="col">CRITERIA</th><th scope="col">VALUE</th></tr></thead><tbody><tr><td>Min</td><td>' + "min" + '</td></tr><tr><td>Max</td><td> ' + "max" + '</td></tr><tr><td>Average</td><td> ' + "total/count" + '</td></tr></tbody></table>';
         if (currentAddress) {
-          L.marker([row[8], row[9]], { title:row[0] }).bindPopup( '<h4>' + row[0] + '</h4><table class="table"><thead><tr><th scope="col">CRITERIA</th><th scope="col">VALUE</th></tr></thead><tbody> ' +
-              '<tr><td>  Neighborhood</td><td> ' + row[10] + '</td></tr>' +
-              '<tr><td>Sub Type</td><td>' + row[1] + '</td></tr>' +
-              '<tr><td>Sub Desc</td><td> ' + row[2] + '</td></tr>' +
-              '<tr><td>  Status</td><td> ' + row[4] + '</td></tr>' +
-              '<tr><td>  URL</td><td><a href=' + row[6] + ' target="_blank"> link</a></td></tr>' +
-              '</tbody></table>').openPopup().addTo(foreclosures);
+          L.marker([row[1], row[2]], { title:row[0] }).bindPopup( '<h4>' + row[0] + '</h4><p>' + recommendation + '<table class="table"><thead><tr><th scope="col">CRITERIA</th><th scope="col">VALUE</th></tr></thead><tbody> ' +
+              '<tr><td>Property Class</td><td> ' + propCode + '</td></tr>' +
+              '<tr><td>Parcel Amount</td><td>' + parcelCode + '</td></tr>' +
+              '</tbody></table>').openPopup().addTo(recommendations);
         }
        }
        resolve('Success!');
      });
      promise3.then(function(value) {
        if (recommendationsOn) {
-         foreclosures.addTo(mymap);
+         recommendations.addTo(mymap);
        }
      });
   }

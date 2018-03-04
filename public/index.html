@@ -16,9 +16,14 @@
     <script defer src="/__/firebase/init.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
     <style media="screen">
+      body{
+        font-family: 'Nunito', sans-serif;
+      }
       #mapid {
         height: 75vh;
+        border-radius: 2.5%;
        }
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"
@@ -31,20 +36,18 @@
   </head>
   <body>
     <div id="title">
-      <h1 class="text-center">MaxLand - Cincinnati</h1>
+      <h1 class="text-center"><strong>MaxLand - Cincinnati</strong></h1>
     </div>
 
     <div id="MapHolder">
       <div id="mapid"></div>
     </div>
 
-    <div id="Interactions" class="text-right">
+    <div id="Interactions" class="text-center">
       <button id="toggleRecommendations" type="button" class="btn btn-dark">Recommendations</button>
       <button id="toggleForeclosure" type="button" class="btn btn-dark">Foreclosures</button>
       <button id="toggleNeighborhood" type="button" class="btn btn-dark">Neighborhoods</button>
     </div>
-
-    <p id="load">Firebase SDK Loading&hellip;</p>
 
     <!-- BOOTSTRAP-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -66,10 +69,8 @@
         try {
           let app = firebase.app();
           let features = ['auth', 'database', 'messaging', 'storage'].filter(feature => typeof app[feature] === 'function');
-          document.getElementById('load').innerHTML = `Firebase SDK loaded with ${features.join(', ')}`;
         } catch (e) {
           console.error(e);
-          document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
       });
       let mymap = L.map('mapid').setView([39.1329, -84.5150], 13),
