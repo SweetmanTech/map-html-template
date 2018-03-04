@@ -62,14 +62,7 @@
           document.getElementById('load').innerHTML = 'Error loading the Firebase SDK, check the console.';
         }
       });
-      var mymap = L.map('mapid').setView([39.1031, -84.5120], 13);
-      L.marker([39.1031, -84.5120], { title:"home"}).addTo(mymap);
-      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-          attribution: 'MaxLand built @ RevolutionUC',
-          maxZoom: 18,
-          id: 'mapbox.streets',
-          accessToken: 'pk.eyJ1IjoicGF0cmlja3N3ZWV0bWFuIiwiYSI6ImNqZWJ0aWszYjBnbDQyeHBieTE1ZmIycXMifQ.EbwMzqH3TpFlJk6EonENrQ'
-      }).addTo(mymap);
     </script>
+    <script src="./js/Map1.js"></script>
   </body>
 </html>
