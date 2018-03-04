@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function displayMap() {
     let that = this;
-    let noValuePopup = "<div class='text-center'><h3>No Neighborhood Data Available, view data source:</h3><a href='https://maxland-a79e2.firebaseapp.com/data/full_joined.csv' class='btn btn-success'>Data</a></div>",
+    let noValuePopup = "<div class='text-center'><h5>No Neighborhood Data Available, view data source:</h5><a href='https://maxland-a79e2.firebaseapp.com/data/full_joined.csv' class='btn btn-success'>Data</a></div>",
         neighborhoods = L.featureGroup([
           L.marker([39.1031, -84.5120], { title:"Cincinnati" }).bindPopup(getNeighborhoodData("Cincinnati")).openPopup(),
           L.marker([39.1486, -84.5903], { title:"Westwood"}).bindPopup(that["WESTWOOD"] ? that["WESTWOOD"][3] : noValuePopup).openPopup(),
