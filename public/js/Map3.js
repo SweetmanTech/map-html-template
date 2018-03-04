@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let currentAddress = row[0],
             propCode = parseInt(row[3]),
             parcelCode = parseInt(row[4]);
-            console.log(parcelCode);
         let recommendation = getPropertyRecommendation(propCode, parcelCode);
         if (currentAddress) {
           L.marker([row[1], row[2]], { title:row[0] }).bindPopup( '<h4>' + row[0] + '</h4><p>' + recommendation + '<table class="table"><thead><tr><th scope="col">CRITERIA</th><th scope="col">VALUE</th></tr></thead><tbody> ' +
@@ -53,53 +52,56 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function getPropertyRecommendation(propcode, parcelcode) {
+    let message = "MaxLand recommends this land parcel be used for ";
     if (propcode >= 500 &&  propcode<600){
    		if (propcode == 501 || propcode == 500 || propcode == 510){
      			if (parcelcode >3){
-        			return "Apartment, Townhome, Condominium" ;
+        			message += "Apartment, Townhome, Condominium" ;
         			}
     		else if (parcelcode ==3){
-        		return "Apartment, Townhome, Condominium, Mutlfamily, Triplex, Duplex" ;
+        		message += "Apartment, Townhome, Condominium, Mutlfamily, Triplex, Duplex" ;
         }
       	else{
-        		return "Triplex, Duplex" ;
+        		message += "Triplex, Duplex" ;
         }
       }
      	else if (propcode ==520 ){
      		if (parcelcode >3){
-        	return "Apartment, Townhome, Condominium, Mutlfamily," ;
+        	message += "Apartment, Townhome, Condominium, Mutlfamily," ;
         }
     		else if (parcelcode ==3){
-        	return "Apartment, Townhome, Condominium, Mutlfamily, Triplex" ;
+        	message += "Apartment, Townhome, Condominium, Mutlfamily, Triplex" ;
         }
          else{
-        	return "Mutlfamily, Triplex" ;
+        	message += "Mutlfamily, Triplex" ;
         }
       }
      	else if (propcode ==530 || propcode == 502 ){
      		if (parcelcode >3){
-        	return "Apartment, Townhome, Condominium," ;
+        	message += "Apartment, Townhome, Condominium," ;
         }
     		else {
-        	return "Apartment, Townhome, Condominium, Mutlfamily" ;
+        	message += "Apartment, Townhome, Condominium, Mutlfamily" ;
         }
       }
       if (propcode == 503 || propcode == 504 || propcode == 505){
-        	return "Apartment, Townhome, Condominium" ;
+        	message += "Apartment, Townhome, Condominium" ;
       }
 
     } else if (propcode >= 400 &&  propcode<500){
         //Extended means put more ontop of the building
     		if (propcode == 401 || propcode == 402 || propcode == 403 || propcode == 404){
-        		return "Extended Apartment, Extended Condominium" ;
+        		message += "Extended Apartment, Extended Condominium" ;
           } else if (propcode > 418 && propcode < 451){
-    	       return "No minimum parking: Mixed use Apartment, Mixed use Condominium" ;
+    	       message += "No minimum parking: Mixed use Apartment, Mixed use Condominium" ;
            } else if (propcode > 699 && propcode < 800){
-    	       return "No minimum parking: Mixed use Apartment, Mixed use Condominium, Apartments, Condominiums, Townhomes" ;
+    	       message += "No minimum parking: Mixed use Apartment, Mixed use Condominium, Apartments, Condominiums, Townhomes" ;
            } else {
-              return "Currently cannot determine use"
+              message += "Currently cannot determine use"
           }
     }
+    message += " development.";
+    return message;
   }
 
 });
