@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   let foreclosureData = requestFile("../data/foreclosure.csv"),
-      foreclosuresOn = true;
+      foreclosuresOn = false,
+      foreclosures = L.featureGroup([L.marker([39.1031, -84.5120], { title:"Cincinnati" }).bindPopup("Cincinnati").openPopup()]);;
 
   function requestFile(filename) {
       let request_obj = new XMLHttpRequest();
@@ -15,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function displayResponse(content) {
-    let foreclosures = L.featureGroup([L.marker([39.1031, -84.5120], { title:"Cincinnati" }).bindPopup("Cincinnati").openPopup()]);
     let htmlData = "";
     var rowString = content.split('\n');
     var dataMatrix = [];
@@ -24,15 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
       let that = this;
       let noValuePopup = "<div class='text-center'><h3>No Foreclosure Data Available, view data source:</h3><a href='https://maxland-a79e2.firebaseapp.com/data/foreclosure.csv' class='btn btn-success'>Data</a></div>";
 
-      //HIDES Foreclosure FeatureGroup on ClickListener
-      $("#toggleForeclosure").click( function() {
-        if(foreclosuresOn) {
-          mymap.removeLayer(foreclosures);
-        } else {
-          mymap.addLayer(foreclosures);
-        }
-        foreclosuresOn = !foreclosuresOn;
-      })
       for (var i = 1; i < rowString.length; i++) {
         let row = rowString[i].split(',');
         let currentForeclosure = row[0];
@@ -51,13 +42,20 @@ document.addEventListener('DOMContentLoaded', function() {
        resolve('Success!');
      });
      promise2.then(function(value) {
-       foreclosures.addTo(mymap);
+       if (foreclosuresOn) {
+         foreclosures.addTo(mymap);
+       }
      });
   }
 
-  function displayMap() {
-
-
-  }
+  //HIDES Foreclosure FeatureGroup on ClickListener
+  $("#toggleForeclosure").click( function() {
+    if(foreclosuresOn) {
+      mymap.removeLayer(foreclosures);
+    } else {
+      mymap.addLayer(foreclosures);
+    }
+    foreclosuresOn = !foreclosuresOn;
+  })
 
 });
